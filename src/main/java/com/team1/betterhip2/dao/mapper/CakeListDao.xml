@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="com.team1.betterhip2.dao.CakeListDao">
+    	<resultMap type="com.team1.betterhip2.dto.CakeListDto" id="cakeListMap">
+    		<result property="cake_id" column="cake_id"/>
+    		<result property="cake_name" column="cake_name"/>
+    		<result property="cake_saleprice" column="cake_saleprice"/>
+    		<result property="cake_status" column="cake_status"/>
+    		<result property="cake_img" column="cake_img" jdbcType="BLOB" javaType="_byte[]"/>
+    	</resultMap>
+    	<select id="list" resultMap="cakeListMap">
+    		select cake_id, cake_name, cake_saleprice, cake_status, cake_img from cake where cake_name like concat('%',#{param1},'%') order by #{param2} limit #{param3} , #{param4}
+    	</select>
+    	
+    	<select id="getTotalRows" resultType="int">
+    		select count(cake_id) from cake where cake_name like concat('%',#{param1},'%')
+    	</select>
+    </mapper>
